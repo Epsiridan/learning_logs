@@ -36,7 +36,6 @@ def new_topic(request):
             form = TopicForm(request.POST)
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Тема успешно создана!')
                 return HttpResponseRedirect(reverse('learning_logs:topics'))
             
         except IntegrityError:
@@ -60,7 +59,6 @@ def new_entry(request, topic_id):
                 new_entry = form.save(commit=False)
                 new_entry.topic = topic
                 new_entry.save()
-                messages.success(request, 'Запись успешно создана!')
                 return HttpResponseRedirect(reverse('learning_logs:topic', args=[topic_id]))
             
         except IntegrityError:
@@ -83,7 +81,6 @@ def edit_entry(request, entry_id):
             form = EntryForm(instance=entry, data=request.POST)
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Запись успешно отредактирована!')
                 return HttpResponseRedirect(reverse('learning_logs:topic', args=[topic.id]))
             
         except IntegrityError:
